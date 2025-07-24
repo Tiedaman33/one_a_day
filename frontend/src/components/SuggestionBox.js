@@ -107,7 +107,7 @@ Education: ${profile.education}
   return (
     <div className="flex flex-col lg:flex-row max-w-7xl mx-auto p-4 gap-8 pt-6 pb-12">
       {/* Left Panel - Form */}
-      <div className="w-full lg:w-1/2 space-y-6">
+      <div className="w-full lg:w-1/2 space-y-6 overflow-y-auto max-h-screen pr-2">
         <header>
           <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Resume Tailor Pro</h1>
           <p className="text-gray-600">Customize your resume for any job in seconds.</p>
@@ -170,8 +170,8 @@ Education: ${profile.education}
       </div>
 
       {/* Right Panel - Preview */}
-      <div className="w-full lg:w-1/2">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-[calc(100vh-3rem)] flex flex-col">
+      <div className="w-full lg:w-1/2 top-0 self-start h-full">
+        <div className="bg-white rounded-xl p-6 h-[calc(100vh-3rem)] flex flex-col">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Live Preview</h2>
 
           {suggestion ? (
