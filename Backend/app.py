@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all origins (OK for local dev)
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_URL = "https://smart-resume-builder-gsrs.onrender.com//api/generate"
 PROFILE_FILE = 'profile.json'
 
 @app.route('/api/profile', methods=['GET'])
