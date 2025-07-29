@@ -80,7 +80,7 @@ function Profile({ onUpdate }) {
       <div>
         <h3 className="text-lg font-semibold mb-2">Work Experience</h3>
         {profile.experience.map((exp, index) => (
-          <div key={index} className="space-y-2 border p-4 mb-4 rounded-md">
+          <div key={index} className="w-half space-y-2  p-4 mb-2 rounded-md">
             <input
               placeholder="Job Title"
               name="title"
@@ -114,8 +114,8 @@ function Profile({ onUpdate }) {
               name="description"
               value={exp.description}
               onChange={(e) => handleChange(e, index, 'experience')}
-              className="w-full p-2 border rounded"
-              rows="2"
+              className="ml-0 w-full p-2 border rounded"
+              rows="3"
             />
           </div>
         ))}
@@ -131,7 +131,7 @@ function Profile({ onUpdate }) {
       <div>
         <h3 className="text-lg font-semibold mb-2">Education</h3>
         {profile.education.map((edu, index) => (
-          <div key={index} className="space-y-2 border p-4 mb-4 rounded-md">
+          <div key={index} className="space-y-2 p-4 mb-4 rounded-md">
             <input
               placeholder="Degree"
               name="degree"
