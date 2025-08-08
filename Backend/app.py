@@ -7,7 +7,8 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all origins (OK for local dev)
 
-OLLAMA_URL = "https://smart-resume-builder-gsrs.onrender.com//api/generate"
+OLLAMA_URL = "http://localhost:11434/api/generate"
+
 PROFILE_FILE = 'profile.json'
 
 @app.route('/api/profile', methods=['GET'])
@@ -68,17 +69,18 @@ def generate_resume():
             "prompt": f"Based on the job description:\n{job_description}\n\nTailor the following resume:\n{base_resume}",
             "stream": False
         })
-
-        if response.status_code != 200:
-            return jsonify({'error': 'Failed to get response from AI model'}), 500
-
-        return jsonify({
-            'generatedResume': response.json()['response'].strip()
-        })
-
+        print("OLLAMA response status:", response.status_code)
+        print("OLLAMA response body:", response.text)
     except Exception as e:
-        print("Error:", e)
-        return jsonify({'error': 'Internal server error'}), 500
+        print("Error contacting AI model:", e)
+        return jsonify({'error': str(e)}), 500
+
+    if response.status_code != 200:
+        return jsonify({'error': 'Failed to get response from AI model'}), 500
+
+    return jsonify({
+        'generatedResume': response.json()['response'].strip()
+    })
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
