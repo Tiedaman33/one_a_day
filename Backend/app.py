@@ -1,16 +1,16 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import json
 import os
 
-app = Flask(__name__, static_folder='dist', static_url_path='')
-CORS(app)  # Enable CORS for all origins 
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all origins (OK for local dev)
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
+
 PROFILE_FILE = 'profile.json'
 
-# API endpoints
 @app.route('/api/profile', methods=['GET'])
 def get_profile():
     if os.path.exists(PROFILE_FILE):
@@ -35,8 +35,9 @@ def suggest():
         return jsonify({'error': 'Text is required'}), 400
 
     try:
+        # Talk to Ollama
         response = requests.post(OLLAMA_URL, json={
-            "model": "qwen2:1.5b",
+            "model": "qwen2:1.5b",  # or any installed model
             "prompt": f"Improve this resume bullet point: \"{text}\"",
             "stream": False
         })
@@ -54,6 +55,7 @@ def suggest():
 @app.route('/api/generate-resume', methods=['POST'])
 def generate_resume():
     data = request.get_json()
+    
     
     job_description = data.get('jobDescription', '')
     base_resume = data.get('baseResume', '')
@@ -80,15 +82,5 @@ def generate_resume():
         'generatedResume': response.json()['response'].strip()
     })
 
-# Serve static frontend files and handle SPA routing
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve_frontend(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
-
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
