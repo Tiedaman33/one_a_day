@@ -72,7 +72,7 @@ Education: ${profile.education}
     setResumeText(resumeContent);
 
     try {
-      await axios.post('http://localhost:5000/api/profile', profile);
+      await axios.post('http://localhost:10000/api/profile', profile);
       console.log('✅ Profile saved to server');
     } catch (err) {
       console.error('❌ Failed to save profile:', err);
@@ -83,7 +83,7 @@ Education: ${profile.education}
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/profile');
+        const res = await axios.get('http://localhost:10000/api/profile');
         if (res.data) {
           handleProfileUpdate(res.data);
         }
@@ -110,7 +110,7 @@ Education: ${profile.education}
     setError('');
     
     try {
-      const res = await axios.post('http://localhost:5000/api/generate-resume', {
+      const res = await axios.post('http://localhost:10000/api/generate-resume', {
         jobDescription: jobInput,
         baseResume: resumeText,
       });
@@ -402,7 +402,7 @@ const exportToPDF = () => {
                       <h4 className="text-lg font-semibold text-card-foreground mb-2">Ready to Generate</h4>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         Complete your profile and add a job description to generate resume.
-                      </p>
+                     </p>
                     </div>
                   </div>
                 )}
