@@ -1,16 +1,33 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
 import json
 import os
 
-app = Flask(__name__)
-CORS(app)  # Enable CORS for all origins (OK for local dev)
+# Tell Flask to serve static files from Vite's build folder
+app = Flask(__name__, static_folder='dist', static_url_path='')
+CORS(app)  # Enable CORS for all origins
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-
 PROFILE_FILE = 'profile.json'
 
+# ----------------------
+# Serve React frontend
+# ----------------------
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static_files(path):
+    file_path = os.path.join(app.static_folder, path)
+    if os.path.exists(file_path):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
+
+# ----------------------
+# API Endpoints
+# ----------------------
 @app.route('/api/profile', methods=['GET'])
 def get_profile():
     if os.path.exists(PROFILE_FILE):
@@ -51,12 +68,9 @@ def suggest():
         print("Error:", e)
         return jsonify({'error': 'Internal server error'}), 500
 
-
 @app.route('/api/generate-resume', methods=['POST'])
 def generate_resume():
     data = request.get_json()
-    
-    
     job_description = data.get('jobDescription', '')
     base_resume = data.get('baseResume', '')
 
