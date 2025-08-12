@@ -9,10 +9,14 @@ Clean UI & responsive design
 
 📂 Project Structure
 one_a_day/ 
-│ ── Backend/ # FastAPI backend code 
-  ── frontend/ # React + Vite frontend 
+│ ── Backend/ # FastAPI backend code
+
+  ── frontend/ # React + Vite frontend
+
   ── requirements.txt # Python backend dependencies 
+
   ── package.json # Root package (if needed) 
+  
   ── .gitignore # Ignored files
 
 🛠 Setup Instructions
