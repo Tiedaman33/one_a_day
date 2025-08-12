@@ -20,9 +20,26 @@ one_a_day/
   ── .gitignore # Ignored files
 
 🛠 Setup Instructions
+
 1️⃣ Backend Setup (FastAPI)
-cd Backend python -m venv .venv source .venv/bin/activate # On Windows: .venv\Scripts\activate pip install -r requirements.txt python app.py
+
+cd Backend python -m venv 
+
+.venv source .venv/bin/activate
+
+# On Windows: 
+
+.venv\Scripts\activate 
+
+pip install -r requirements.txt 
+
+cd .\backend
+
+python app.py
 
 2️⃣ Frontend Setup (React + Vite)
 
-cd frontend npm install npm run dev
+
+cd frontend
+
+npm install npm run dev
