@@ -1,5 +1,5 @@
 One a Day
-A full-stack application for creating and managing daily tasks, powered by a React + Vite + shadcn/ui frontend and a Python (FastAPI) backend.
+A full-stack application for creating and managing resumes, powered by a React + Vite + ui frontend and a Python (FastAPI) backend.
 
 🚀 Features
 Frontend: React, Vite, TypeScript, ui components
